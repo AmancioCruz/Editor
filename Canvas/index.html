@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/canvas.css">
+    <title>Canvas</title>
+</head>
+<body>
+    <div class="contenedor">
+        <canvas class="canvas" id="canvas" width="800" height="600"
+            onclick="DibujarFigura(event)"
+            onmousedown="alHacerClick(event)"
+            onmousemove="move(event)"
+            onmouseleave="leave()"
+            onmouseup="alSoltarClick(event)">
+        </canvas>
+        
+        <div class="barra-herramientas">
+
+            <div class="contenedor-imagnes-prev">
+                <div id="imagen-prev" class="imagen-prev">
+                    <input type="file" name="selecionar-imagen" id="selecionar-imagen">
+                    <label for="selecionar-imagen">
+                        <div></div>
+                    </label>
+                </div>
+                <div id="sticker-prev" class="imagen-prev">
+                    <input type="file" name="seleccionar-sticker" id="seleccionar-sticker" onchange="cargarImagen(event)">
+                    <label for="seleccionar-sticker">
+                        <div></div>
+                    </label>
+                    </label>
+                </div>
+            </div>
+            
+            <!--input type="file" name="" id=""-->
+            <div>
+                <div>
+                    <input type="range" name="" id="rango-imagen" min="10" max="100">
+                </div>
+            </div>
+
+            <div class="contenedor-botones" id="contenedor-botones">
+                <input class="btn-cambio" type="button" value="Pincel" onclick="SeleccionarOpcion(event,'pincel')">
+                <input class="btn-cambio" type="button" value="Cuadro" onclick="SeleccionarOpcion(event,'cuadrado')">
+                <input class="btn-cambio" type="button" value="Circulo" onclick="SeleccionarOpcion(event,'cirulo')">
+                <input class="btn-cambio" type="button" value="Sticker" onclick="SeleccionarOpcion(event,'imagen')">
+                <input class="btn-cambio" type="button" value="Linea">
+                <input class="btn-cambio" type="button" value="Borrador">
+            </div>
+            <div class="contenedor-grupo-seleccionar-color">
+                <div class="contenedor-seleccionar-color">
+                    <label for="Linea">Linea</label>
+                    <input class="seleccionar-color" type="color" name="Linea" id="seleccionar-color-linea" value="#31556e">
+                </div>
+                
+                <div class="contenedor-seleccionar-color">
+                    <label for="Relleno">Relleno</label>
+                    <input class="seleccionar-color" type="color" name="Relleno" id="seleccionar-color-relleno" value="#31556e">
+                </div>
+                
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="js/recursos.js"></script>
+<script src="js/canvas.js"></script>
+</html>
