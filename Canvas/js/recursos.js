@@ -1,8 +1,10 @@
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
-const opciones = ["cirulo", "cuadrado", "imagen", "pincel"];
+const opciones = ["cursor", "pincel", "linea", "cirulo", "cuadrado", "imagen", "borrador"];
 const prev_sticker = document.querySelector("#sticker-prev");
 const rangoImagen = document.querySelector("#rango-imagen");
+const colorLinea = document.querySelector("#seleccionar-color-linea");
+const colorRelleno = document.querySelector("#seleccionar-color-relleno")
 let opcion;
 let sticker_url = "../recursos/default.png";
 let posicionesCursor = [[],[]];
@@ -13,7 +15,7 @@ let sticker;
 let cuadrado;
 
 class Rectangulo {
-    constructor(id, posicionesCursor , colorlinea, colorrelleno, grozorlinea){
+    constructor(id, posicionesCursor, colorlinea, colorrelleno, grozorlinea){
         this.Id = id,
         this.x = Math.min(posicionesCursor[0].x, posicionesCursor[1].x),
         this.y = Math.min(posicionesCursor[0].y, posicionesCursor[1].y),
@@ -24,16 +26,22 @@ class Rectangulo {
         this.colorRelleno = colorrelleno,
         this.grozorLinea = grozorlinea
     }
-    Dibujar(){
+    Crear(){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        renderizarDiujos();
+    
+        this.Dibujar();
+    }
+    Dibujar(){
         ctx.beginPath();
-        ctx.lineWidth = this.grozorLinea;
-        ctx.fillStyle = this.colorRelleno;
         ctx.strokeStyle = this.colorLinea;
+        ctx.fillStyle = this.colorRelleno;
+        ctx.lineWidth = this.grozorLinea;
 
         ctx.fillRect(this.x, this.y, this.ancho, this.alto);
         ctx.strokeRect(this.x, this.y, this.ancho, this.alto);
     }
+    EstaDentro(posicionesCursor){}
 }
 
 class Circulo {
@@ -42,21 +50,44 @@ class Circulo {
         this.x = posicionesCursor[0].x,
         this.y = posicionesCursor[0].y,
         this.radio = Math.sqrt((posicionesCursor[1].x - posicionesCursor[0].x) **2 + (posicionesCursor[1].y - posicionesCursor[0].y) ** 2),
-
+        
         this.colorLinea = colorlinea,
         this.colorRelleno = colorrelleno,
-        this.grozorLinea = grozorlinea
+        this.grozorLinea = grozorlinea 
+    }
+    Crear(){
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        renderizarDiujos();
+    
+        this.Dibujar();
     }
     Dibujar(){
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.beginPath();
-        ctx.lineWidth = this.grozorLinea;
-        ctx.fillStyle = this.colorRelleno;
         ctx.strokeStyle = this.colorLinea;
-
+        ctx.fillStyle = this.colorRelleno;
+        ctx.lineWidth = this.grozorLinea;
         ctx.arc(this.x, this.y, this.radio, 0, Math.PI * 2);
         ctx.fill();
         ctx.stroke();
+    }
+    EstaDentro(posicionesCursor){
+        console.log("Verificando si esta dentro " + this.Id);
+        const dx = posicionesCursor[1].x - this.x;
+        const dy = posicionesCursor[1].y - this.y;
+        if(Math.sqrt(dx * dx + dy * dy) <= this.radio){
+            ctx.beginPath();
+            ctx.strokeStyle = "red";
+            ctx.fillStyle = this.colorRelleno;
+            ctx.lineWidth = this.grozorLinea;
+            ctx.arc(this.x, this.y, this.radio, 0, Math.PI * 2);
+            ctx.fill();
+            ctx.stroke();
+            return true ;
+        }else{
+            
+            this.Dibujar();
+            return false;
+        }
     }
 }
 
@@ -70,9 +101,15 @@ class Sticker{
         this.x = posX;
         this.y = posY;
     }
-    Dibujar(){
+    Crear(){
         ctx.clearRect(0, 0, canvas.width, canvas.height);
+        renderizarDiujos();
+
+        this.Dibujar();
+    }
+    Dibujar(){
         ctx.beginPath();
         ctx.drawImage(this.imagen, 0, 0, this.imagen.width, this.imagen.height, this.x - (this.ancho/2), this.y - (this.alto/2), this.ancho, this.alto);
     }
+    EstaDentro(posicionesCursor){}
 }

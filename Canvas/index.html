@@ -9,7 +9,7 @@
 <body>
     <div class="contenedor">
         <canvas class="canvas" id="canvas" width="800" height="600"
-            onclick="DibujarFigura(event)"
+            onclick=""
             onmousedown="alHacerClick(event)"
             onmousemove="move(event)"
             onmouseleave="leave()"
@@ -42,12 +42,13 @@
             </div>
 
             <div class="contenedor-botones" id="contenedor-botones">
+                <input class="btn-cambio" type="button" value="Cursor" onclick="SeleccionarOpcion(event,'cursor')">
                 <input class="btn-cambio" type="button" value="Pincel" onclick="SeleccionarOpcion(event,'pincel')">
-                <input class="btn-cambio" type="button" value="Cuadro" onclick="SeleccionarOpcion(event,'cuadrado')">
+                <input class="btn-cambio" type="button" value="Linea" onclick="SeleccionarOpcion(event,'linea')">
                 <input class="btn-cambio" type="button" value="Circulo" onclick="SeleccionarOpcion(event,'cirulo')">
+                <input class="btn-cambio" type="button" value="Cuadro" onclick="SeleccionarOpcion(event,'cuadrado')">
                 <input class="btn-cambio" type="button" value="Sticker" onclick="SeleccionarOpcion(event,'imagen')">
-                <input class="btn-cambio" type="button" value="Linea">
-                <input class="btn-cambio" type="button" value="Borrador">
+                <input class="btn-cambio" type="button" value="Borrador" onclick="SeleccionarOpcion(event,'borrador')">
             </div>
             <div class="contenedor-grupo-seleccionar-color">
                 <div class="contenedor-seleccionar-color">

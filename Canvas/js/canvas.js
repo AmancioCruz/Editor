@@ -19,7 +19,7 @@ function move(event){
         x: event.offsetX,
         y: event.offsetY 
     }
-    if(iniciarTrazo && opcion === 4){
+    if(iniciarTrazo && opcion === 1){
         ctx.beginPath();
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
@@ -33,20 +33,26 @@ function move(event){
             y: event.offsetY 
         }
     }
-    if(opcion == 3){
-        sticker = new Sticker(1, sticker_url, event.offsetX, event.offsetY, rangoImagen.value);
-        sticker.Dibujar();
-    }
     if(iniciarTrazo && opcion == 2){
-
-        cuadrado = new Rectangulo(1, posicionesCursor, "green", "red", 15);
-        cuadrado.Dibujar();
+        
     }
-    if(iniciarTrazo && opcion == 1){
-
-        circulo = new Circulo(1, posicionesCursor, "red", "pink", 15);
-        circulo.Dibujar();
+    if(iniciarTrazo && opcion == 3){
+        circulo = new Circulo(1, posicionesCursor, colorLinea.value, colorRelleno.value, 15);
+        circulo.Crear();
     }
+    if(iniciarTrazo && opcion == 4){
+        cuadrado = new Rectangulo(1, posicionesCursor, colorLinea.value, colorRelleno.value, 15);
+        cuadrado.Crear();
+    }
+    if(opcion == 5){
+        sticker = new Sticker(1, sticker_url, event.offsetX, event.offsetY, rangoImagen.value);
+        sticker.Crear();
+    }
+    if(opcion == 6){
+    
+    }
+    
+   
 }
 
 function leave(){
@@ -59,28 +65,61 @@ function alSoltarClick(event){
             y: event.offsetY
         }
 
-    iniciarTrazo = false;    
+    iniciarTrazo = false;
+    
+    DibujarFigura(event);
+    //ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
+}
+
+function renderizarDiujos(canvas){
+    dibujos.forEach(dibujo => {
+        //console.log(dibujo.Id);
+        dibujo.Dibujar();
+    });
 }
 
 function SeleccionarOpcion(event, opcionUsuario){
     if(opcionUsuario == opciones[0]){
-        opcion = 1;
-        console.log(opciones[0]);
+        //cursor
+        opcion = 0;
+        console.log("Opcion seleccionada: " + opciones[0]);
     }
     if(opcionUsuario == opciones[1]){
-        opcion = 2;
+        //pincel
+        opcion = 1;
         console.log(opcion);
-        console.log(opciones[1]);
+        console.log("Opcion seleccionada: " + opciones[1]);
     }
     if(opcionUsuario == opciones[2]){
-        opcion = 3;
+        //linea
+        opcion = 2;
         console.log(opcion);
-        console.log(opciones[2]);
+        console.log( "Opcion seleccionada: " + opciones[2]);
     }
     if(opcionUsuario == opciones[3]){
+        //circulo
+        opcion = 3;
+        console.log(opcion);
+        console.log( "Opcion seleccionada: " + opciones[3]);
+    }
+    if(opcionUsuario == opciones[4]){
+        //cuadrado
         opcion = 4;
         console.log(opcion);
-        console.log(opciones[3]);
+        console.log( "Opcion seleccionada: " + opciones[4]);
+    }
+    if(opcionUsuario == opciones[5]){
+        //imagen
+        opcion = 5;
+        console.log(opcion);
+        console.log( "Opcion seleccionada: " + opciones[5]);
+    }
+    if(opcionUsuario == opciones[6]){
+        //borrador
+        opcion = 6;
+        console.log(opcion);
+        console.log( "Opcion seleccionada: " + opciones[6]);
     }
     for( let i = 0; i < event.target.parentNode.children.length; i++){
         event.target.parentNode.children[i].classList.remove("btn-cambio-activado");
@@ -90,31 +129,41 @@ function SeleccionarOpcion(event, opcionUsuario){
 }
 
 function DibujarFigura(event){
+    if(opcion === 0){
+        console.log("seleccionar cursor");
+        dibujos.forEach(element => {
+            console.log(element.EstaDentro(posicionesCursor));
+        });
+    }
     if(opcion === 1){
+        console.log("dibujar con el pincel");
+    }
+    if(opcion === 2){
+        console.log("dibujar linea");
+    }
+    if(opcion === 3){
         console.log("Dibujando circulo");
         //asignamos el valor del id sumandole el largo del arreglo
         circulo.Id = circulo.Id + dibujos.length;
         dibujos.push(circulo);
-        circulo.Dibujar();
+        //circulo.Dibujar();
     }
-    if(opcion === 2 ){
+    if(opcion === 4 ){
         console.log("Dibujando cuadrado");
-        cuadrado.Dibujar();
+        cuadrado.Id = cuadrado.Id + dibujos.length;
+        dibujos.push(cuadrado);
     }
-    if(opcion === 3){
+    if(opcion === 5){
         console.log("Dibujar Imagen");
         //asignamos el id al situcker y dibujamos la figura
         sticker.Id = sticker.Id + dibujos.length;
         dibujos.push(sticker);
         //dibujar el sticker cuando se hace click
-        sticker.Dibujar();
-
-    }
-    if(opcion === 4){
-        console.log("dibujar con el pincel");
     }
     
+    
     console.log(dibujos);
+   
 }
 
 function cargarImagen(event){
