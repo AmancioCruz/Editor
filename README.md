@@ -1,1 +1,1 @@
-# Interfaz-Din-mica-
+Interfaz Dinamica
