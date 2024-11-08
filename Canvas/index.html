@@ -19,8 +19,8 @@
         <div class="barra-herramientas">
 
             <div class="contenedor-imagnes-prev">
-                <div id="imagen-prev" class="imagen-prev">
-                    <input type="file" name="selecionar-imagen" id="selecionar-imagen">
+                <div id="imagen-draggable" class="imagen-prev" draggable="true">
+                    <input type="file" name="selecionar-imagen" id="selecionar-imagen" onchange="cargarImagen(event)">
                     <label for="selecionar-imagen">
                         <div></div>
                     </label>
@@ -68,4 +68,5 @@
 </body>
 <script src="js/recursos.js"></script>
 <script src="js/canvas.js"></script>
+<script src="js/drag&drop.js"></script>
 </html>

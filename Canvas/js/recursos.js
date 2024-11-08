@@ -1,10 +1,10 @@
 const canvas = document.querySelector("#canvas");
 const ctx = canvas.getContext("2d");
 const opciones = ["cursor", "pincel", "linea", "cirulo", "cuadrado", "imagen", "borrador"];
-const prev_sticker = document.querySelector("#sticker-prev");
 const rangoImagen = document.querySelector("#rango-imagen");
 const colorLinea = document.querySelector("#seleccionar-color-linea");
-const colorRelleno = document.querySelector("#seleccionar-color-relleno")
+const colorRelleno = document.querySelector("#seleccionar-color-relleno");
+const imagen_draggable = document.querySelector("#imagen-draggable");
 let opcion;
 let sticker_url = "../recursos/default.png";
 let posicionesCursor = [[],[]];
@@ -13,6 +13,7 @@ let dibujos = [];
 let circulo;
 let sticker;
 let cuadrado;
+let url_draggable = "../recursos/default.png";
 
 class Rectangulo {
     constructor(id, posicionesCursor, colorlinea, colorrelleno, grozorlinea){

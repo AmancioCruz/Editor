@@ -168,18 +168,23 @@ function DibujarFigura(event){
 
 function cargarImagen(event){
     let imgUrl;
+    const imagen_fondo = event.target.parentNode;
+    console.log(event.target.parentNode.draggable)
     if(event.target.files[0]){
         console.log(event.target.files[0].type);
         if(event.target.files[0].type === "image/png"){
             const reader = new FileReader();
             reader.onload = (event) => {
                 imgUrl = event.target.result;
-                prev_sticker.style.backgroundImage = `Url(${imgUrl})`;
+                imagen_fondo.style.backgroundImage = `Url(${imgUrl})`;
                 sticker_url = imgUrl;
-                //console.log(imgUrl);
+                if(imagen_fondo.draggable){
+                    url_draggable = imgUrl;
+                }
             }
             reader.readAsDataURL(event.target.files[0]);
         }
     }
 }
+
 
